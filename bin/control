@@ -2,8 +2,7 @@
 PATH=/bin/:/usr/bin:$PATH
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 function start {
-	cd $OPENSHIFT_IMAGES_DIR/version/images/
-  nohup $OPENSHIFT_IMAGES_DIR/node/bin/node server.js >> $OPENSHIFT_IMAGES_LOG_DIR/images.log 2>&1 &
+	
   echo "Start"
   }
 function stop {
