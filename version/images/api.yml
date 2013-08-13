@@ -1,0 +1,56 @@
+resourcePath: /
+description: Hal API
+apis:
+
+- path: /{apikey}/store
+  operations:
+  - httpMethod: POST
+    nickname: store
+    summary: Store images on the path
+    responseClass: StoreReponse
+    parameters:
+    - name: apikey
+      description: The User api key
+      paramType: path
+      dataType: string
+      required: true
+
+    - name: file
+      paramType: body
+      description: The image to process
+      dataType: file
+- path: /{apikey}/resize/{height}/{width}/{filename}
+  operations:
+  - httpMethod: GET
+    nickname: resize
+    summary: Resize images already stored
+    responseClass: StoreReponse
+    parameters:
+    - name: apikey
+      description: The User api key
+      paramType: path
+      dataType: string
+      required: true
+    - name: width
+      description: The User api key
+      paramType: path
+      dataType: string
+      required: true
+    - name: height
+      description: The User api key
+      paramType: path
+      dataType: string
+      required: true
+    - name: filename
+      paramType: path
+      description: The image to process
+      dataType: string
+      required: true
+
+models:
+  StoreReponse:
+    id: StoreReponse
+    properties:
+      result:
+      type: Object
+      description: The response Object

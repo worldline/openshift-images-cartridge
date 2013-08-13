@@ -1,0 +1,12 @@
+!/bin/bash
+PATH=/bin/:/usr/bin:$PATH
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+wget http://nodejs.org/dist/v0.10.15/node-v0.10.15-linux-x64.tar.gz
+tar zxvf node-v0.10.15-linux-x64.tar.gz
+ln -s node-v0.10.15-linux-x64 node &
+cd $OPENSHIFT_IMAGES_DIR/version/images/
+npm install
+key=$(generate_password)
+echo "$key" > $OPENSHIFT_IMAGES_DIR/env/OPENSHIFT_IMAGES_KEY
+mkdir $OPENSHIFT_IMAGES_LOG_DIR
+client_result "The images API key is $key"

@@ -1,0 +1,25 @@
+#!/bin/bash
+PATH=/bin/:/usr/bin:$PATH
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+function start {
+	cd $OPENSHIFT_IMAGES_DIR/version/images/
+  nohup $OPENSHIFT_IMAGES_DIR/node/bin/node server.js >> $OPENSHIFT_IMAGES_LOG_DIR/images.log 2>&1 &
+  echo "Start"
+  }
+function stop {
+  export NODEPID=`cat $OPENSHIFT_IMAGES_LOG_DIR/node.pid`
+  kill -9 $NODEPID
+}
+function status {
+  echo "Not currently made"
+}
+function build {
+  echo "Nothing to build"
+}
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart) restart ;;
+  status) status ;;
+tidy) tidy ;;
+esac

@@ -1,0 +1,33 @@
+{
+  "name": "imagesstore",
+  "version": "0.0.0",
+  "description": "The best module ever.",
+  "homepage": "https://github.com//imagesstore",
+  "bugs": "https://github.com//imagesstore/issues",
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//imagesstore"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0"
+  },
+  "dependencies": {
+    "express": "",
+    "fs-extra": "",
+    "js-yaml": "",
+    "swagger-jack": "",
+    "underscore": "",
+    "gm" : ""
+  }
+}
