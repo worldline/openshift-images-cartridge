@@ -2,7 +2,8 @@
 PATH=/bin/:/usr/bin:$PATH
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 function start {
-	
+	 cd $OPENSHIFT_IMAGES_DIR/version/email/
+  nohup $OPENSHIFT_IMAGES_DIR/node/bin/node server.js >> $OPENSHIFT_IMAGES_LOG_DIR/emailapi.log 2>&1 &
   echo "Start"
   }
 function stop {
