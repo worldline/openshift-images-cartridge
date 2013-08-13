@@ -3,7 +3,7 @@ var express = require('express');
 var swagger = require('swagger-jack');
 var yaml = require('js-yaml');
 var http = require('http');
-
+var fs = require('fs');
 
 fs.writeFile('<%= ENV['OPENSHIFT_IMAGES_LOG_DIR'] %>/node.pid', process.pid, function (err) {
   if (err) throw err;
