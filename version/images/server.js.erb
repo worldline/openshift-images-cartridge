@@ -74,7 +74,7 @@ app.use(function(err, req, res, next)
 
 var server = http.createServer(app);
 var port= process.env.OPENSHIFT_IMAGES_PORT || 8080;
-var ip= process.env.OPENSHIFT_IMAGES_IP || ""
+var ip= process.env.OPENSHIFT_IMAGES_HOST || ""
 console.log("try listening on"+ip+":"+port)
 server.listen(port,ip, function(err){
   if(err)
