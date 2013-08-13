@@ -80,7 +80,7 @@ var resize = function(req,res,next) {
   if(key!=process.env.OPENSHIFT_IMAGES_KEY)
   {
       res.end(key+' is an invalid API key')
-  
+  }
   else
   {
     var filename = req.input.filename;
