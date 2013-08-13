@@ -36,38 +36,41 @@ var store = function(req,res,next) {
     {
         res.end(key+' is an invalid API key')
     }
-    var uid = uidgenerator();
-    //console.log(req.files.file)
-    try
+    else
     {
-      if(req.files.file.size>maxSize)
+      var uid = uidgenerator();
+      //console.log(req.files.file)
+      try
       {
-        throw "File is too big" 
-      }
-      var extension=allowedType[req.files.file.type];
-      if(extension===undefined)
-      {
-        throw "Invalid file extension" 
-      }
-      fs.readFile(req.files.file.path, function (err, data) {
-        var newPath =baseUploadPath+uid+extension;
-        fs.writeFile(newPath, data, function (err) {
-          if(err===null)
-          {
-            err = "{imageId: "+uid+extension+"}"
-          }
-          res.jsonp({
-          status: err
+        if(req.files.file.size>maxSize)
+        {
+          throw "File is too big" 
+        }
+        var extension=allowedType[req.files.file.type];
+        if(extension===undefined)
+        {
+          throw "Invalid file extension" 
+        }
+        fs.readFile(req.files.file.path, function (err, data) {
+          var newPath =baseUploadPath+uid+extension;
+          fs.writeFile(newPath, data, function (err) {
+            if(err===null)
+            {
+              err = "{imageId: "+uid+extension+"}"
+            }
+            res.jsonp({
+            status: err
+            });
           });
         });
-      });
-       
-    }
-    catch(err)
-    {
-      res.jsonp({
-          status: err
-        });
+         
+      }
+      catch(err)
+      {
+        res.jsonp({
+            status: err
+          });
+      }
     }
     
    
@@ -77,38 +80,40 @@ var resize = function(req,res,next) {
   if(key!=process.env.OPENSHIFT_IMAGES_KEY)
   {
       res.end(key+' is an invalid API key')
-  }
-  var filename = req.input.filename;
-  var height = req.input.height;
-  var width = req.input.width;
-  var ImagePath = baseUploadPath+filename;
-    fs.exists(ImagePath, function (exists) {
-      if(!exists)
-      {
-        res.jsonp({error: "filenotFound"})
-      }
-      else
-      {
-         fs.exists(baseUploadPath+path.basename(filename, path.extname(filename))+"-"+height+"-"+width+path.extname(filename), function (exists) {
-          if(exists)
-          {
-            res.sendfile(path.resolve(baseUploadPath+path.basename(filename, path.extname(filename))+"-"+height+"-"+width+path.extname(filename)));
-          }
-          else
-          {
-            imageMagick(ImagePath)
-            .resize(height, width)
-            .write(baseUploadPath+path.basename(filename, path.extname(filename))+"-"+height+"-"+width+path.extname(filename), function (err) {
-              if (!err) {res.sendfile(path.resolve(baseUploadPath+path.basename(filename, path.extname(filename))+"-"+height+"-"+width+path.extname(filename)))}
-                else
-                  {res.jsonp('{"error": "fileNotConverted"}')}
-            });
-          }
-         });
-        
-      }
-    });
-
+  
+  else
+  {
+    var filename = req.input.filename;
+    var height = req.input.height;
+    var width = req.input.width;
+    var ImagePath = baseUploadPath+filename;
+      fs.exists(ImagePath, function (exists) {
+        if(!exists)
+        {
+          res.jsonp({error: "filenotFound"})
+        }
+        else
+        {
+           fs.exists(baseUploadPath+path.basename(filename, path.extname(filename))+"-"+height+"-"+width+path.extname(filename), function (exists) {
+            if(exists)
+            {
+              res.sendfile(path.resolve(baseUploadPath+path.basename(filename, path.extname(filename))+"-"+height+"-"+width+path.extname(filename)));
+            }
+            else
+            {
+              imageMagick(ImagePath)
+              .resize(height, width)
+              .write(baseUploadPath+path.basename(filename, path.extname(filename))+"-"+height+"-"+width+path.extname(filename), function (err) {
+                if (!err) {res.sendfile(path.resolve(baseUploadPath+path.basename(filename, path.extname(filename))+"-"+height+"-"+width+path.extname(filename)))}
+                  else
+                    {res.jsonp('{"error": "fileNotConverted"}')}
+              });
+            }
+           });
+          
+        }
+      });
+    }
 }
 
 
