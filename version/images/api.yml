@@ -19,18 +19,13 @@ apis:
       paramType: body
       description: The image to process
       dataType: file
-- path: /{apikey}/resize/{height}/{width}/{filename}
+- path: /resize/{height}/{width}/{filename}
   operations:
   - httpMethod: GET
     nickname: resize
     summary: Resize images already stored
     responseClass: StoreReponse
     parameters:
-    - name: apikey
-      description: The User api key
-      paramType: path
-      dataType: string
-      required: true
     - name: width
       description: The User api key
       paramType: path

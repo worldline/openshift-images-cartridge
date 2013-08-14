@@ -76,13 +76,6 @@ var store = function(req,res,next) {
    
 }
 var resize = function(req,res,next) {
-  var key = req.input.apikey;
-  if(key!=process.env.OPENSHIFT_IMAGES_KEY)
-  {
-      res.end(key+' is an invalid API key')
-  }
-  else
-  {
     var filename = req.input.filename;
     var height = req.input.height;
     var width = req.input.width;
@@ -113,7 +106,6 @@ var resize = function(req,res,next) {
           
         }
       });
-    }
 }
 
 
